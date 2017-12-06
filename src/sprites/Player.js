@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 
-const MOVE_DIST = 100
-const ANIMATION_DURATION = 250
+const SPEED = 2
+const BUFFER = 80
 
 export default class extends Phaser.Sprite {
   constructor ({ game }) {
@@ -13,32 +13,55 @@ export default class extends Phaser.Sprite {
     this.frame = 0
     this.scale.setTo(0.5)
     this.anchor.setTo(0.5)
+    this.lane = 1
+    const x = this.game.width / 2
+    this.lanes = [x - 100, x, x + 100]
   }
 
   reset (x, y) {
     this.position = { x, y }
   }
 
-  move (dir, callback) {
-    let x = this.x
-
-    if (dir === 1) {
-      if (x > this.game.width - 200) {
-        return
-      }
-      x += MOVE_DIST
-    } else {
-      if (x < 200) {
-        return
-      }
-      x -= MOVE_DIST
+  move (x) {
+    this.targetX = x
+    if (this.targetX < BUFFER) {
+      this.targetX = BUFFER
+    } else if (this.targetX > this.game.width - BUFFER) {
+      this.targetX = this.game.width - BUFFER
     }
+  }
 
-    const tween = this.game.add
-      .tween(this)
-      .to({ x }, ANIMATION_DURATION, Phaser.Easing.Linear.None, true)
-    callback && tween.onComplete.add(callback, this)
+  release (diff) {
+    if (Math.abs(diff) > 1) {
+      if (diff < 0 && this.lane < 2) {
+        this.lane += 1
+      } else if (this.lane > 0) {
+        this.lane -= 1
+      }
+      this.targetX = this.lanes[this.lane]
+      console.log(diff, this.lane)
+    } else {
+      this.moveToNearestLane()
+    }
+  }
 
-    return tween
+  getNearestLane (x = this.x) {
+    const diffs = this.lanes.map(lane => Math.abs(lane - x))
+    const smallest = Math.min.apply(this, diffs)
+    const index = diffs.indexOf(smallest)
+    return index
+  }
+
+  moveToNearestLane (x = this.x) {
+    const index = this.getNearestLane()
+    this.targetX = this.lanes[index]
+    this.lane = index
+  }
+
+  update () {
+    if (typeof this.targetX === 'number') {
+      this.lane = this.getNearestLane()
+      this.x += this.x > this.targetX ? -SPEED : SPEED
+    }
   }
 }

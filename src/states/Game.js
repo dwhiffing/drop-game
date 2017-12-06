@@ -14,6 +14,8 @@ export default class extends Phaser.State {
   }
 
   update () {
+    this.gameService.update()
+
     this.game.physics.arcade.overlap(
       this.gameService.player,
       this.gameService.tileService.group,
