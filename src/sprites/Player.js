@@ -5,13 +5,13 @@ const ANIMATION_DURATION = 250
 
 export default class extends Phaser.Sprite {
   constructor ({ game }) {
-    super(game, game.width / 2, game.height - 150, 'tile')
+    super(game, game.width / 2, game.height - 80, 'tile')
     this.group = game.add.group()
     this.game.physics.arcade.enable(this)
     this.group.add(this)
     this.reset(this.x, this.y)
-    this.frame = 1
-    this.scale.setTo(1.5)
+    this.frame = 0
+    this.scale.setTo(0.5)
     this.anchor.setTo(0.5)
   }
 

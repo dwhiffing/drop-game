@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 
-const NUM_FRAMES = 5
+const NUM_FRAMES = 3
 
 export default class extends Phaser.Sprite {
   constructor ({ game, x, y, gameOverCallback }) {
@@ -8,18 +8,14 @@ export default class extends Phaser.Sprite {
     this.game.physics.arcade.enable(this)
     this.gameOverCallback = gameOverCallback
     this.anchor.setTo(0.5)
+    this.scale.set(0.3)
     this.kill()
+    const mid = this.game.width / 2
+    this.lanes = [mid - 100, mid, mid + 100]
   }
 
   reset (lane) {
-    let x = 110
-    if (lane === 1) {
-      x = 210
-    }
-    if (lane === 2) {
-      x = 310
-    }
-
+    const x = this.lanes[lane]
     super.reset(x, -200)
     this.visible = true
     this.frame = this._getRandomType()
@@ -37,6 +33,6 @@ export default class extends Phaser.Sprite {
   }
 
   _getRandomType () {
-    return Math.floor(Math.random() * NUM_FRAMES)
+    return Math.floor(Math.random() * NUM_FRAMES + 1)
   }
 }
