@@ -17,6 +17,7 @@ export default class TileService {
 
   spawn () {
     const tile = this.group.getFirstDead()
+    tile.angle = this.game.rnd.integerInRange(-8, 8)
     if (!tile) {
       return
     }
