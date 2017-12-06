@@ -1,10 +1,12 @@
 import TileService from './TileService'
+import SnowService from './SnowService'
 import Player from '../sprites/Player'
 
 export default class GameService {
   constructor (state, gameOverCallback) {
     this.game = window.game
 
+    this.snowService = new SnowService()
     this.tileService = new TileService({
       game: this.game,
       gameOverCallback: gameOverCallback
@@ -40,5 +42,16 @@ export default class GameService {
 
   update () {
     this.player.update()
+    this.snowService.update()
+  }
+
+  render () {
+    this.game.debug.body(this.player)
+    this.tileService.group.forEachAlive(
+      this.game.debug.body,
+      this.game.debug,
+      '#ff9090',
+      false
+    )
   }
 }
