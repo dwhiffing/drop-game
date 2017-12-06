@@ -11,6 +11,17 @@ export default class extends Phaser.State {
   create () {
     this.gameService = new GameService(this, this.gameOver)
     this.UIService = new UIService(this)
+    this.emitter = this.add.emitter(this.world.centerX, 200, 200)
+    this.emitter.makeParticles('flakes')
+    this.emitter.maxParticleScale = 0.4
+    this.emitter.minParticleScale = 0.1
+    this.emitter.gravity = 1200
+    this.emitter.maxParticleSpeed.x = 200
+    this.emitter.minParticleSpeed.x = -200
+    this.emitter.maxParticleSpeed.y = -100
+    this.emitter.minParticleSpeed.y = -400
+    this.emitter.minParticleAlpha = 0.4
+    this.emitter.maxParticleAlpha = 1
   }
 
   update () {
@@ -27,8 +38,15 @@ export default class extends Phaser.State {
 
   collisionHandler (a, b) {
     b.kill()
-    score++
-    this.UIService.scoreText.text = `Score: ${score}`
+    this.emitter.x = b.x
+    this.emitter.y = b.y - 25
+    this.emitter.start(true, 4000, null, 30)
+    score += 100
+    this.UIService.scoreText.text = `${score}`
+  }
+
+  render () {
+    // this.gameService.render()
   }
 
   gameOver () {
