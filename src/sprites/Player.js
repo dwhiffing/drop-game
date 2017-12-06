@@ -16,6 +16,11 @@ export default class extends Phaser.Sprite {
     this.lane = 1
     const x = this.game.width / 2
     this.lanes = [x - 100, x, x + 100]
+    this.body.width = 10
+    this.body.height = 10
+    game.physics.enable(this, Phaser.Physics.ARCADE)
+
+    this.body.setSize(120, 120, 70, 120)
   }
 
   reset (x, y) {
@@ -39,7 +44,6 @@ export default class extends Phaser.Sprite {
         this.lane -= 1
       }
       this.targetX = this.lanes[this.lane]
-      console.log(diff, this.lane)
     } else {
       this.moveToNearestLane()
     }

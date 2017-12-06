@@ -12,6 +12,9 @@ export default class extends Phaser.Sprite {
     this.kill()
     const mid = this.game.width / 2
     this.lanes = [mid - 100, mid, mid + 100]
+
+    game.physics.enable(this, Phaser.Physics.ARCADE)
+    this.body.setSize(150, 120, 50, 60)
   }
 
   reset (lane) {
