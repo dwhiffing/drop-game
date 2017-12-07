@@ -18,8 +18,8 @@ export default class extends Phaser.State {
     this.loaderBar.anchor.setTo(0.5)
 
     this.load.setPreloadSprite(this.loaderBar)
-    this.load.spritesheet('tile', 'assets/images/sprites.png', 250, 250)
-    this.load.spritesheet('flakes', 'assets/images/flakes.png', 80, 80)
+    this.load.spritesheet('tile', 'assets/images/sprites.png', 600, 600)
+    this.load.spritesheet('flakes', 'assets/images/flakes.png', 320, 320)
   }
 
   create () {

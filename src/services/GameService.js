@@ -30,11 +30,6 @@ export default class GameService {
   }
 
   onRelease ({ position }) {
-    if (this.didMove) {
-      this.player.release(this.startX - position.x)
-    } else {
-      this.player.moveToNearestLane(position.x)
-    }
     this.game.input.onDown.add(this.onPress, this)
     this.game.input.onUp.remove(this.onRelease, this)
     this.game.input.deleteMoveCallback(this.onMove, this)

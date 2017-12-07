@@ -6,12 +6,15 @@ export default class extends Phaser.State {
     this.stage.backgroundColor = '#1E2F67'
     this.fontsReady = false
     this.fontsLoaded = this.fontsLoaded.bind(this)
+    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
+    this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+    this.game.scale.refresh()
   }
 
   preload () {
     WebFont.load({
       google: {
-        families: ['Bangers']
+        families: ['Roboto']
       },
       active: this.fontsLoaded
     })

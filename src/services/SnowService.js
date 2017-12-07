@@ -1,16 +1,21 @@
-const MAX_FLAKES = 30
-const MAX_SNOW = 60
+const MAX_FLAKES = 15
+const MAX_SNOW = 30
+const BASE_Y_SPEED = 5
+const FLAKE_BUFFER = 320 / 2
+const SNOW_BUFFER = 5
+const NUM_SNOW_SCALES = 4
+const NUM_FLAKE_SCALES = 4
 
 export default class SnowService {
   constructor (state, gameOverCallback) {
     this.game = window.game
 
     this.snow = []
-    for (let i = 0; i < MAX_SNOW; i++) {
+    for (let i = 0; i < MAX_SNOW * window.devicePixelRatio; i++) {
       const graphic = this.game.add.graphics(0, 0)
 
       graphic.beginFill(0xffffff, 1)
-      graphic.drawCircle(0, 0, 8)
+      graphic.drawCircle(0, 0, 15)
       this.snow.push(graphic)
       this.updateSnow(
         i,
@@ -20,7 +25,7 @@ export default class SnowService {
     }
 
     this.flakes = []
-    for (let i = 0; i < MAX_FLAKES; i++) {
+    for (let i = 0; i < MAX_FLAKES * window.devicePixelRatio; i++) {
       const flake = this.game.add.sprite(0, 0, 'flakes')
       flake.anchor.set(0.5)
       this.flakes.push(flake)
@@ -41,38 +46,40 @@ export default class SnowService {
     const W = this.game.width
     const H = this.game.height
 
-    for (let i = 0; i < MAX_FLAKES; i++) {
+    for (let i = 0; i < MAX_FLAKES * window.devicePixelRatio; i++) {
       let p = this.flakes[i]
-      p.y += Math.cos(this.angle + p.d) + 1 + p.r / 2
+      const buffer = FLAKE_BUFFER * window.scaleRatio
+      p.y += Math.cos(this.angle + p.d) + BASE_Y_SPEED + p.r
       p.x += Math.sin(this.angle) * 2
       p.angle += p.angleDelta
 
-      if (p.x > W + 5 || p.x < -5 || p.y > H) {
+      if (p.x > W + buffer || p.x < -buffer || p.y > H + buffer) {
         if (i % 3 > 0) {
-          this.updateFlake(i, Math.random() * W, -10)
+          this.updateFlake(i, Math.random() * W, -buffer)
         } else {
           if (Math.sin(this.angle) > 0) {
-            this.updateFlake(i, -5, Math.random() * H)
+            this.updateFlake(i, -buffer, Math.random() * H)
           } else {
-            this.updateFlake(i, W + 5, Math.random() * H)
+            this.updateFlake(i, W + buffer, Math.random() * H)
           }
         }
       }
     }
 
-    for (let i = 0; i < MAX_SNOW; i++) {
+    for (let i = 0; i < MAX_SNOW * window.devicePixelRatio; i++) {
       let p = this.snow[i]
-      p.y += Math.cos(this.angle + p.d) + 1 + p.r / 2
+      const buffer = SNOW_BUFFER * window.scaleRatio
+      p.y += Math.cos(this.angle + p.d) + BASE_Y_SPEED + p.r / 2
       p.x += Math.sin(this.angle) * 2
 
-      if (p.x > W + 5 || p.x < -5 || p.y > H) {
+      if (p.x > W + buffer || p.x < -buffer || p.y > H + buffer) {
         if (i % 3 > 0) {
-          this.updateSnow(i, Math.random() * W, -10)
+          this.updateSnow(i, Math.random() * W, -buffer)
         } else {
           if (Math.sin(this.angle) > 0) {
-            this.updateSnow(i, -5, Math.random() * H)
+            this.updateSnow(i, -buffer, Math.random() * H)
           } else {
-            this.updateSnow(i, W + 5, Math.random() * H)
+            this.updateSnow(i, W + buffer, Math.random() * H)
           }
         }
       }
@@ -80,22 +87,27 @@ export default class SnowService {
   }
 
   updateFlake (i, x, y) {
-    this.flakes[i].x = x
-    this.flakes[i].y = y
-    this.flakes[i].scale.set(Math.random() * 0.8 + 0.8)
-    this.flakes[i].angleDelta = Math.random() * 2 + -1
-    this.flakes[i].frame = Math.floor(Math.random() * 9)
-    this.flakes[i].r = (Math.random() * 4 + 1) / 2
-    this.flakes[i].alpha = 30 * this.flakes[i].r / 100
-    this.flakes[i].d = Math.random() * MAX_FLAKES
+    const flake = this.flakes[i]
+    flake.x = x
+    flake.y = y
+    flake.r = Math.random() * NUM_FLAKE_SCALES + 1
+    flake.d = Math.random() * MAX_FLAKES
+
+    flake.alpha = 10 * flake.r / 100
+    flake.scale.set(flake.r / NUM_FLAKE_SCALES)
+    flake.frame = Math.floor(Math.random() * 9)
+
+    flake.angleDelta = Math.random() * 2 + -1
   }
 
   updateSnow (i, x, y) {
-    this.snow[i].x = x
-    this.snow[i].y = y
-    this.snow[i].r = Math.random() * 4 + 1
-    this.snow[i].d = Math.random() * MAX_SNOW
-    this.snow[i].scale.set(Math.random() * 0.4 + 0.5)
-    this.snow[i].alpha = 20 * this.snow[i].r / 100
+    const snow = this.snow[i]
+    snow.x = x
+    snow.y = y
+    snow.r = Math.random() * NUM_SNOW_SCALES + 1
+    snow.d = Math.random() * MAX_SNOW
+
+    snow.alpha = 10 * snow.r / 100
+    snow.scale.set(snow.r / NUM_SNOW_SCALES)
   }
 }
