@@ -11,9 +11,10 @@ export default class extends Phaser.Sprite {
     this.group.add(this)
     this.reset(this.x, this.y)
     this.frame = 0
-    this.scale.setTo(0.5)
+    this.scale.setTo(1)
     this.anchor.setTo(0.5)
     this.lane = 1
+    this.game = game
     const x = this.game.width / 2
     this.lanes = [x - 100, x, x + 100]
     this.body.width = 10

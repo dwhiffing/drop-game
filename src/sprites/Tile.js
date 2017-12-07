@@ -8,7 +8,7 @@ export default class extends Phaser.Sprite {
     this.game.physics.arcade.enable(this)
     this.gameOverCallback = gameOverCallback
     this.anchor.setTo(0.5)
-    this.scale.set(0.3)
+    this.scale.set(0.5)
     this.kill()
     const mid = this.game.width / 2
     this.lanes = [mid - 100, mid, mid + 100]

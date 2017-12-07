@@ -43,7 +43,7 @@ export default class extends Phaser.State {
     this.emitter.y = b.y - 25
     this.emitter.start(true, 4000, null, 30)
     score += 100
-    this.UIService.scoreText.text = `${score}`
+    this.UIService.updateScore(score)
   }
 
   render () {

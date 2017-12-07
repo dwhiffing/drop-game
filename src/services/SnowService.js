@@ -1,5 +1,5 @@
-const MAX_FLAKES = 20
-const MAX_SNOW = 200
+const MAX_FLAKES = 30
+const MAX_SNOW = 60
 
 export default class SnowService {
   constructor (state, gameOverCallback) {
@@ -82,8 +82,8 @@ export default class SnowService {
   updateFlake (i, x, y) {
     this.flakes[i].x = x
     this.flakes[i].y = y
-    this.flakes[i].scale.set(Math.random() * 0.3 + 0.5)
-    this.flakes[i].angleDelta = Math.random() * 1 + -0.5
+    this.flakes[i].scale.set(Math.random() * 0.8 + 0.8)
+    this.flakes[i].angleDelta = Math.random() * 2 + -1
     this.flakes[i].frame = Math.floor(Math.random() * 9)
     this.flakes[i].r = (Math.random() * 4 + 1) / 2
     this.flakes[i].alpha = 30 * this.flakes[i].r / 100
@@ -95,7 +95,7 @@ export default class SnowService {
     this.snow[i].y = y
     this.snow[i].r = Math.random() * 4 + 1
     this.snow[i].d = Math.random() * MAX_SNOW
-    this.snow[i].scale.set(Math.random() * 0.7 + 0.2)
-    this.snow[i].alpha = 40 * this.snow[i].r / 100
+    this.snow[i].scale.set(Math.random() * 0.4 + 0.5)
+    this.snow[i].alpha = 20 * this.snow[i].r / 100
   }
 }
