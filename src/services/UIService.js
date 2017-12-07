@@ -1,11 +1,13 @@
 import PointText from '../sprites/PointText'
 
 export default class UIService {
-  constructor (state) {
+  constructor ({ game }) {
     this.score = 0
 
-    this.group = state.add.group()
-    this.graphics = state.add.graphics()
+    this.game = game
+
+    this.group = game.add.group()
+    this.graphics = game.add.graphics()
     this.graphics.beginFill('0x000000')
     this.graphics.alpha = 0.5
     const width = 400 * window.scaleRatio
@@ -14,10 +16,10 @@ export default class UIService {
     this.graphics.drawRoundedRect(0, 0, width, height, height / 2)
     this.group.add(this.graphics)
 
-    this.bar = state.add.graphics()
+    this.bar = game.add.graphics()
     this.bar.beginFill('0x2bd47f')
     this.bar.alpha = 1
-    this.bar.drawRect(0, 0, state.game.width, 30)
+    this.bar.drawRect(0, 0, game.width, 30)
 
     const style = {
       font: `${60 * window.scaleRatio}pt Roboto`,
@@ -28,17 +30,17 @@ export default class UIService {
       boundsAlignV: 'center'
     }
 
-    this.scoreText = state.add.text(0, width / 15, '0', style)
+    this.scoreText = game.add.text(0, width / 15, '0', style)
     this.scoreText.setTextBounds(0, 0, width, height)
     this.scoreText.resolution = window.devicePixelRatio
     this.group.add(this.scoreText)
 
-    this.group.x = state.world.centerX - this.graphics.width / 2
+    this.group.x = game.world.centerX - this.graphics.width / 2
     this.group.y = 100
 
-    this.pointTexts = state.add.group()
+    this.pointTexts = game.add.group()
     for (let i = 0; i < 10; i++) {
-      const pointText = new PointText({ game: state.game })
+      const pointText = new PointText({ game: game })
       this.pointTexts.add(pointText.text)
     }
   }
@@ -52,5 +54,14 @@ export default class UIService {
     this.scoreText.text = this.score
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
+
+  update () {
+    this.bar.scale.x -= 0.0005
+    if (this.bar.scale.x <= 0) {
+      this.game.state.start('GameOver', true, false, {
+        score: this.score
+      })
+    }
   }
 }

@@ -1,5 +1,7 @@
 import TileService from './TileService'
 import SnowService from './SnowService'
+import EmitterService from './EmitterService'
+import UIService from './UIService'
 import Player from '../sprites/Player'
 
 export default class GameService {
@@ -7,11 +9,12 @@ export default class GameService {
     this.game = window.game
 
     this.snowService = new SnowService()
-    this.tileService = new TileService({
-      game: this.game
-    })
 
+    this.tileService = new TileService({ game: this.game })
     this.player = new Player({ game: this.game })
+    this.UIService = new UIService({ game: this.game })
+    this.EmitterService = new EmitterService({ game: this.game })
+
     this.game.input.onDown.add(this.onPress, this)
   }
 
@@ -37,6 +40,12 @@ export default class GameService {
   update () {
     this.player.update()
     this.snowService.update()
+    this.UIService.update()
+  }
+
+  updateScore (score, x, y) {
+    this.EmitterService.emit(x, y)
+    this.UIService.updateScore(score, x, y)
   }
 
   render () {
