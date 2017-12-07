@@ -12,16 +12,18 @@ export default class TileService {
       this.group.add(tile)
     }
 
-    setInterval(this.spawn.bind(this), 1000)
+    this.game.time.events.loop(1000, this.spawn, this)
   }
 
   spawn () {
     const tile = this.group.getFirstDead()
-    tile.angle = this.game.rnd.integerInRange(-8, 8)
-    if (!tile) {
-      return
+    if (tile) {
+      tile.angle = this.game.rnd.integerInRange(-8, 8)
+      if (!tile) {
+        return
+      }
+      tile.reset(this.getRandomLane())
     }
-    tile.reset(this.getRandomLane())
   }
 
   getRandomLane () {
