@@ -38,6 +38,7 @@ export default class extends Phaser.State {
 
   collisionHandler (a, b) {
     b.kill()
+    a.tween()
     this.emitter.x = b.x
     this.emitter.y = b.y - 25
     this.emitter.start(true, 4000, null, 30)

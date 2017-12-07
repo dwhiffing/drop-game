@@ -49,6 +49,18 @@ export default class extends Phaser.Sprite {
     }
   }
 
+  tween () {
+    const tween = this.game.add
+      .tween(this.scale)
+      .to({ x: 1.1, y: 1.2 }, 100, Phaser.Easing.Quadratic.Out, true)
+
+    tween.onComplete.add(() => {
+      this.game.add
+        .tween(this.scale)
+        .to({ x: 1, y: 1 }, 250, Phaser.Easing.Quadratic.Out, true)
+    })
+  }
+
   getNearestLane (x = this.x) {
     const diffs = this.lanes.map(lane => Math.abs(lane - x))
     const smallest = Math.min.apply(this, diffs)
