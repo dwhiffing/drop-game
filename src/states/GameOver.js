@@ -4,32 +4,16 @@ export default class extends Phaser.State {
   init (args = {}) {
     this.score = args.score
   }
+
   preload () {}
 
   create (args) {
-    const bannerText = 'Game Over!'
-    const banner = this.game.add.text(
-      this.state.game.width / 2,
-      this.state.game.height / 2,
-      bannerText
-    )
-    banner.font = 'Bangers'
-    banner.padding.set(10, 16)
-    banner.fontSize = 40
-    banner.fill = '#77BFA3'
-    banner.smoothed = false
-    banner.anchor.setTo(0.5)
-
-    const scoreText = this.game.add.text(
-      this.state.game.width / 2,
-      this.state.game.height / 2 + 100,
-      `Score: ${this.score}`
-    )
-    scoreText.font = 'Bangers'
-    scoreText.padding.set(10, 16)
-    scoreText.fontSize = 32
-    scoreText.fill = '#fff'
-    scoreText.smoothed = false
-    scoreText.anchor.setTo(0.5)
+    this.stage.backgroundColor = '#ffffff'
+    const image = this.game.add.image(0, 0, 'background')
+    const scale = this.game.width / image.width
+    image.scale.set(scale)
+    this.game.input.onDown.add(() => {
+      window.location = 'https://b.ewd.io/agtq/FERNNNZyGI'
+    }, this)
   }
 }

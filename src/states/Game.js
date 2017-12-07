@@ -7,6 +7,9 @@ export default class extends Phaser.State {
 
   create () {
     this.gameService = new GameService(this, this.gameOver)
+    this.sound = this.add.audio('swipe')
+    this.music = this.add.audio('music')
+    this.music.play()
   }
 
   update () {
@@ -24,6 +27,7 @@ export default class extends Phaser.State {
   collisionHandler (a, b) {
     b.kill()
     a.tween()
+    this.sound.play()
     this.gameService.updateScore(100, a.x, a.y - a.height)
   }
 
