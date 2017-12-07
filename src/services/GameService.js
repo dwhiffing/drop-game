@@ -3,13 +3,12 @@ import SnowService from './SnowService'
 import Player from '../sprites/Player'
 
 export default class GameService {
-  constructor (state, gameOverCallback) {
+  constructor (state) {
     this.game = window.game
 
     this.snowService = new SnowService()
     this.tileService = new TileService({
-      game: this.game,
-      gameOverCallback: gameOverCallback
+      game: this.game
     })
 
     this.player = new Player({ game: this.game })

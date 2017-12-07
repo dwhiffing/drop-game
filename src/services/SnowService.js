@@ -7,7 +7,7 @@ const NUM_SNOW_SCALES = 4
 const NUM_FLAKE_SCALES = 4
 
 export default class SnowService {
-  constructor (state, gameOverCallback) {
+  constructor (state) {
     this.game = window.game
 
     this.snow = []

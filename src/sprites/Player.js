@@ -1,10 +1,10 @@
 import Phaser from 'phaser'
 
-const SPEED = 6
+const SPEED = 5
 
 export default class extends Phaser.Sprite {
   constructor ({ game }) {
-    super(game, game.width / 2, game.height - 120, 'tile')
+    super(game, game.width / 2, game.height - 260, 'tile')
     this.group = game.add.group()
     this.game.physics.arcade.enable(this)
     this.group.add(this)
@@ -19,11 +19,11 @@ export default class extends Phaser.Sprite {
     this.game = game
 
     const x = this.game.width / 2
-    this.lanes = [0 + x / 2, x, this.game.width - x / 2]
+    this.lanes = [0 + x / 2.5, x, this.game.width - x / 2.5]
     game.physics.enable(this, Phaser.Physics.ARCADE)
     const _x = this.width / 2
 
-    this.body.setSize(_x / 3, 10, _x / 1.15, _x)
+    this.body.setSize(_x, _x / 10, _x / 4, _x)
   }
 
   reset (x, y) {
@@ -40,6 +40,9 @@ export default class extends Phaser.Sprite {
   }
 
   tween () {
+    if (this.isTweening) {
+      return
+    }
     const tween = this.game.add
       .tween(this.scale)
       .to(
@@ -50,14 +53,17 @@ export default class extends Phaser.Sprite {
       )
 
     tween.onComplete.add(() => {
-      this.game.add
+      const tween = this.game.add
         .tween(this.scale)
         .to(
           { x: this.scaleRatio, y: this.scaleRatio },
-          400,
+          250,
           Phaser.Easing.Quadratic.Out,
           true
         )
+      tween.onComplete.add(() => {
+        this.tweening = false
+      })
     })
   }
 

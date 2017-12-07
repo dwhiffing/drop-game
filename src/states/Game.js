@@ -26,6 +26,10 @@ export default class extends Phaser.State {
 
   update () {
     this.gameService.update()
+    this.UIService.bar.scale.x -= 0.0005
+    if (this.UIService.bar.scale.x <= 0) {
+      this.game.state.start('GameOver', true, false, { score })
+    }
 
     this.game.physics.arcade.overlap(
       this.gameService.player,
@@ -48,9 +52,5 @@ export default class extends Phaser.State {
 
   render () {
     // this.gameService.render()
-  }
-
-  gameOver () {
-    // this.game.state.start('GameOver', true, false, { score })
   }
 }

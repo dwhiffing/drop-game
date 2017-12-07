@@ -1,13 +1,16 @@
 import Tile from '../sprites/Tile'
 
 export default class TileService {
-  constructor ({ gameOverCallback }) {
+  constructor () {
     this.game = window.game
     this.tiles = []
     this.group = this.game.add.group()
+    this.speeds = [1, 1, 1, 1.5, 1.5, 1.5, 2, 1, 2, 1, 1, 1, 2, 1.5, 1.5, 1, 2]
+    this.lane = 1
+    this.speedIndex = 0
 
     for (let i = 0; i < 50; i++) {
-      const tile = new Tile({ game: this.game, gameOverCallback })
+      const tile = new Tile({ game: this.game })
       this.tiles.push(tile)
       this.group.add(tile)
     }
@@ -22,11 +25,16 @@ export default class TileService {
       if (!tile) {
         return
       }
-      tile.reset(this.getRandomLane())
-    }
-  }
+      tile.reset(this.lane, this.speeds[this.speedIndex++])
 
-  getRandomLane () {
-    return Math.floor(Math.random() * 3)
+      if (this.speedIndex > this.speeds.length - 1) {
+        this.speedIndex = 0
+      }
+      if (this.lane === 1) {
+        this.lane = Math.round(Math.random()) === 1 ? 0 : 2
+      } else {
+        this.lane = 1
+      }
+    }
   }
 }

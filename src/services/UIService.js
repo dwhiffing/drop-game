@@ -4,14 +4,19 @@ export default class UIService {
     this.graphics = state.add.graphics()
     this.graphics.beginFill('0x000000')
     this.graphics.alpha = 0.5
-    const width = 350 * window.scaleRatio
-    const height = 120 * window.scaleRatio
+    const width = 400 * window.scaleRatio
+    const height = 140 * window.scaleRatio
 
-    this.graphics.drawRoundedRect(0, 0, width, height, 50)
+    this.graphics.drawRoundedRect(0, 0, width, height, 80)
     this.group.add(this.graphics)
 
+    this.bar = state.add.graphics()
+    this.bar.beginFill('0x2bd47f')
+    this.bar.alpha = 1
+    this.bar.drawRect(0, 0, state.game.width, 50)
+
     const style = {
-      font: `${50 * window.scaleRatio}pt Roboto`,
+      font: `${60 * window.scaleRatio}pt Roboto`,
       fill: '#fff',
       weight: 'bold',
       align: 'center',
@@ -25,7 +30,7 @@ export default class UIService {
     this.group.add(this.scoreText)
 
     this.group.x = state.world.centerX - this.graphics.width / 2
-    this.group.y = 50
+    this.group.y = 100
   }
 
   updateScore (n) {
