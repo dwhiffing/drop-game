@@ -1,5 +1,9 @@
+import PointText from '../sprites/PointText'
+
 export default class UIService {
   constructor (state) {
+    this.score = 0
+
     this.group = state.add.group()
     this.graphics = state.add.graphics()
     this.graphics.beginFill('0x000000')
@@ -7,13 +11,13 @@ export default class UIService {
     const width = 400 * window.scaleRatio
     const height = 140 * window.scaleRatio
 
-    this.graphics.drawRoundedRect(0, 0, width, height, 80)
+    this.graphics.drawRoundedRect(0, 0, width, height, height / 2)
     this.group.add(this.graphics)
 
     this.bar = state.add.graphics()
     this.bar.beginFill('0x2bd47f')
     this.bar.alpha = 1
-    this.bar.drawRect(0, 0, state.game.width, 50)
+    this.bar.drawRect(0, 0, state.game.width, 30)
 
     const style = {
       font: `${60 * window.scaleRatio}pt Roboto`,
@@ -31,9 +35,22 @@ export default class UIService {
 
     this.group.x = state.world.centerX - this.graphics.width / 2
     this.group.y = 100
+
+    this.pointTexts = state.add.group()
+    for (let i = 0; i < 10; i++) {
+      const pointText = new PointText({ game: state.game })
+      this.pointTexts.add(pointText.text)
+    }
   }
 
-  updateScore (n) {
-    this.scoreText.text = n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  updateScore (n, x, y) {
+    this.score += n
+    const pointText = this.pointTexts.getFirstDead()
+    if (pointText) {
+      pointText.reset(x, y, n)
+    }
+    this.scoreText.text = this.score
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
 }

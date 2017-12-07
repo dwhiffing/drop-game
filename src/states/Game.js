@@ -2,8 +2,6 @@ import Phaser from 'phaser'
 import GameService from '../services/GameService'
 import UIService from '../services/UIService'
 
-let score = 0
-
 export default class extends Phaser.State {
   init () {}
   preload () {}
@@ -28,7 +26,9 @@ export default class extends Phaser.State {
     this.gameService.update()
     this.UIService.bar.scale.x -= 0.0005
     if (this.UIService.bar.scale.x <= 0) {
-      this.game.state.start('GameOver', true, false, { score })
+      this.game.state.start('GameOver', true, false, {
+        score: this.UIService.score
+      })
     }
 
     this.game.physics.arcade.overlap(
@@ -46,8 +46,7 @@ export default class extends Phaser.State {
     this.emitter.x = a.x
     this.emitter.y = a.y - a.height
     this.emitter.start(true, 4000, null, 8)
-    score += 100
-    this.UIService.updateScore(score)
+    this.UIService.updateScore(100, a.x, a.y - a.height)
   }
 
   render () {

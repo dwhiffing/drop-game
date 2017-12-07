@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 
 const NUM_FRAMES = 3
-const SPEED = 15
+const SPEED = 18
 
 export default class extends Phaser.Sprite {
   constructor ({ game, x, y }) {
