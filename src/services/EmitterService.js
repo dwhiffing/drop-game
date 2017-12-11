@@ -13,9 +13,9 @@ export default class EmiterService {
     this.emitter.maxParticleAlpha = 0.4
   }
 
-  emit (x, y, amount = 8) {
+  emit (x, y, amount = 2) {
     this.emitter.x = x
     this.emitter.y = y
-    this.emitter.start(true, 4000, null, 8)
+    this.emitter.start(true, 4000, null, amount)
   }
 }

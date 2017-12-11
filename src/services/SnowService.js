@@ -1,5 +1,5 @@
-const MAX_FLAKES = 15
-const MAX_SNOW = 30
+const MAX_FLAKES = 5
+const MAX_SNOW = 20
 const BASE_Y_SPEED = 5
 const FLAKE_BUFFER = 320 / 2
 const SNOW_BUFFER = 5

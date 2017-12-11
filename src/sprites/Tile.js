@@ -10,12 +10,16 @@ export default class extends Phaser.Sprite {
     this.anchor.setTo(0.5)
     this.scale.set(window.scaleRatio)
     this.kill()
-    const mid = this.game.width / 2
-    this.lanes = [0 + mid / 2.5, mid, this.game.width - mid / 2.5]
+    let width = this.game.width
+    if (width > 500) {
+      width = 500
+    }
+    let mid = this.game.width / 2
+    this.lanes = [mid - width / 2.2, mid, mid + width / 2.2]
 
     game.physics.enable(this, Phaser.Physics.ARCADE)
     const _x = this.width / 2
-    this.body.setSize(_x / 3, _x / 10, _x / 2, _x)
+    this.body.setSize(_x / 3, _x / 5, _x * 1.5, _x)
   }
 
   reset (lane, speed) {
@@ -28,7 +32,7 @@ export default class extends Phaser.Sprite {
 
   update () {
     if (this.visible) {
-      this.y += this.speed
+      this.y += this.speed * window.scaleRatio
     }
 
     if (this.y > this.game.height + this.height) {

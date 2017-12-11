@@ -1,6 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var CleanWebpackPlugin = require('clean-webpack-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 var phaserModule = path.join(__dirname, '/node_modules/phaser-ce/')
@@ -19,7 +20,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: './dist/',
+    publicPath: './',
     filename: 'bundle.js'
   },
   plugins: [
@@ -38,7 +39,7 @@ module.exports = {
       filename: 'vendor.bundle.js'
     }),
     new HtmlWebpackPlugin({
-      filename: '../index.html',
+      filename: './index.html',
       template: './src/index.html',
       chunks: ['vendor', 'app'],
       chunksSortMode: 'manual',
@@ -53,7 +54,8 @@ module.exports = {
         removeEmptyAttributes: true
       },
       hash: true
-    })
+    }),
+    new CopyWebpackPlugin([{ from: 'assets/images', to: 'assets/images' }])
   ],
   module: {
     rules: [

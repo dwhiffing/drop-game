@@ -6,6 +6,7 @@ export default class extends Phaser.State {
   preload () {}
 
   create () {
+    this.stage.backgroundColor = '#1E2F67'
     this.gameService = new GameService(this, this.gameOver)
     this.sound = this.add.audio('swipe')
     this.music = this.add.audio('music')
@@ -28,7 +29,7 @@ export default class extends Phaser.State {
     b.kill()
     a.tween()
     this.sound.play()
-    this.gameService.updateScore(100, a.x, a.y - a.height)
+    this.gameService.updateScore(25, a.x, a.y - a.height)
   }
 
   render () {

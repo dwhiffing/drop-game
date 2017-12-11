@@ -12,6 +12,7 @@ export default class UIService {
     this.graphics.alpha = 0.5
     const width = 400 * window.scaleRatio
     const height = 140 * window.scaleRatio
+    this.timer = this.game.time.events.loop(20000, this.endGame, this)
 
     this.graphics.drawRoundedRect(0, 0, width, height, height / 2)
     this.group.add(this.graphics)
@@ -57,11 +58,13 @@ export default class UIService {
   }
 
   update () {
-    this.bar.scale.x -= 0.0005
-    if (this.bar.scale.x <= 0) {
-      this.game.state.start('GameOver', true, false, {
-        score: this.score
-      })
-    }
+    this.bar.scale.x =
+      (this.timer.tick - this.timer.timer._now) / this.timer.delay
+  }
+
+  endGame () {
+    this.game.state.start('GameOver', true, false, {
+      score: this.score
+    })
   }
 }

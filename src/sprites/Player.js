@@ -1,10 +1,10 @@
 import Phaser from 'phaser'
 
-const SPEED = 5
+const SPEED = 10
 
 export default class extends Phaser.Sprite {
   constructor ({ game }) {
-    super(game, game.width / 2, game.height - 260, 'tile')
+    super(game, game.width / 2, game.height - 260 * window.scaleRatio, 'tile')
     this.group = game.add.group()
     this.game.physics.arcade.enable(this)
     this.group.add(this)
@@ -23,7 +23,7 @@ export default class extends Phaser.Sprite {
     game.physics.enable(this, Phaser.Physics.ARCADE)
     const _x = this.width / 2
 
-    this.body.setSize(_x, _x / 10, _x / 4, _x)
+    this.body.setSize(_x, _x / 10, _x, _x)
   }
 
   reset (x, y) {
