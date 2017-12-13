@@ -5,7 +5,9 @@ export default class extends Phaser.State {
     this.score = args.score
   }
 
-  preload () {}
+  preload () {
+    this.load.image('background', './assets/images/bg.png')
+  }
 
   create (args) {
     this.stage.backgroundColor = '#2bd47f'
