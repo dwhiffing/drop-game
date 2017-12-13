@@ -3,7 +3,10 @@ import GameService from '../services/GameService'
 
 export default class extends Phaser.State {
   init () {}
-  preload () {}
+  preload () {
+    this.load.audio('music', 'assets/images/music.mp3')
+    this.load.audio('swipe', 'assets/images/swipe.mp3')
+  }
 
   create () {
     this.stage.backgroundColor = '#1E2F67'
