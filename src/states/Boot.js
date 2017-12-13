@@ -3,6 +3,7 @@ import WebFont from 'webfontloader'
 
 export default class extends Phaser.State {
   init () {
+    this.stage.backgroundColor = '#2bd47f'
     this.fontsReady = false
     this.fontsLoaded = this.fontsLoaded.bind(this)
     this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
