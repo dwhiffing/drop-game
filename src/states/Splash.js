@@ -18,8 +18,8 @@ export default class extends Phaser.State {
     this.loaderBar.anchor.setTo(0.5)
 
     this.load.setPreloadSprite(this.loaderBar)
-    this.load.image('background', './assets/images/bg.png')
-    this.load.image('menu', './assets/images/menu.png')
+    this.load.image('background', './assets/images/bg2.png')
+    this.load.image('menu', './assets/images/menu2.png')
     this.load.spritesheet('tile', 'assets/images/sprites.png', 600, 600)
     this.load.spritesheet('flakes', 'assets/images/flakes.png', 320, 320)
     this.load.audio('music', 'assets/images/music.mp3')
@@ -29,7 +29,7 @@ export default class extends Phaser.State {
   update () {
     if (this.cache.isSoundDecoded('music') && !this.ready) {
       this.ready = true
-      this.state.start('Menu')
+      this.state.start('GameOver')
     }
   }
 }
