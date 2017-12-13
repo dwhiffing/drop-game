@@ -94,7 +94,7 @@ export default class SnowService {
     flake.d = Math.random() * MAX_FLAKES
 
     flake.alpha = 10 * flake.r / 100
-    flake.scale.set(flake.r / NUM_FLAKE_SCALES)
+    flake.scale.set(flake.r / NUM_FLAKE_SCALES * 0.7)
     flake.frame = Math.floor(Math.random() * 9)
 
     flake.angleDelta = Math.random() * 2 + -1

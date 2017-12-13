@@ -8,7 +8,7 @@ export default class extends Phaser.State {
   preload () {}
 
   create (args) {
-    this.stage.backgroundColor = '#ffffff'
+    this.stage.backgroundColor = '#2bd47f'
     const image = this.game.add.image(
       this.game.width / 2,
       this.game.height / 2,
