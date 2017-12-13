@@ -13,7 +13,7 @@ export default class GameService {
     this.tileService = new TileService({ game: this.game })
     this.player = new Player({ game: this.game })
     this.UIService = new UIService({ game: this.game })
-    this.EmitterService = new EmitterService({ game: this.game })
+    // this.EmitterService = new EmitterService({ game: this.game })
 
     this.game.input.onDown.add(this.onPress, this)
   }
@@ -44,7 +44,7 @@ export default class GameService {
   }
 
   updateScore (score, x, y) {
-    this.EmitterService.emit(x, y)
+    // this.EmitterService.emit(x, y)
     this.UIService.updateScore(score, x, y)
   }
 
