@@ -18,12 +18,14 @@ export default class extends Phaser.State {
       },
       active: this.fontsLoaded
     })
-    this.load.image('loaderBg', './assets/images/loader-bg.png')
-    this.load.image('loaderBar', './assets/images/loader-bar.png')
+    // this.load.image('loaderBg', './assets/images/loader-bg.png')
+    // this.load.image('loaderBar', './assets/images/loader-bar.png')
   }
 
   render () {
-    this.state.start('Splash')
+    if (this.fontsReady) {
+      this.state.start('Splash')
+    }
   }
 
   fontsLoaded () {
