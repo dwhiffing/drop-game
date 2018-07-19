@@ -30,7 +30,7 @@ export default class extends Phaser.State {
     b.kill()
     a.tween()
     this.sound.play()
-    this.gameService.updateScore(25, a.x, a.y - a.height)
+    this.gameService.updateScore(50, a.x, a.y - a.height)
   }
 
   render () {
