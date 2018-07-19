@@ -7,7 +7,7 @@ export default class extends Phaser.State {
   preload () {}
 
   create () {
-    this.stage.backgroundColor = '#1E2F67'
+    this.stage.backgroundColor = '#2A1AA1'
     this.gameService = new GameService(this, this.gameOver)
     this.sound = this.add.audio('swipe')
     this.music = this.add.audio('music')

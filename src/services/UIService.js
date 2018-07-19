@@ -12,7 +12,7 @@ export default class UIService {
     this.graphics.alpha = 0.5
     const width = 400 * window.scaleRatio
     const height = 140 * window.scaleRatio
-    this.timer = this.game.time.events.loop(20000, this.endGame, this)
+    this.timer = this.game.time.events.loop(10000, this.endGame, this)
 
     this.graphics.drawRoundedRect(0, 0, width, height, height / 2)
     this.group.add(this.graphics)
